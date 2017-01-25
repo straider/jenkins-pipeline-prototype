@@ -1,0 +1,45 @@
+#!/usr/bin/env groovy
+
+stage name: 'Build', concurrency: 1
+    node {
+        echo 'Building Artefact(s)...'
+        echo 'Executing Unit Tests...'
+        echo 'Executing Integration Tests...'
+        echo 'Executing Contract Tests...'
+        echo 'Executing Security Tests...'
+        echo 'Gathering Metrics...'
+        echo 'Publishing Artefact(s)...'
+
+        echo 'Build stage successful'
+    }
+
+stage name: 'Acceptance', concurrency: 1
+    node {
+        echo 'Executing Smoke Tests...'
+        echo 'Executing Acceptance Tests...'
+        echo 'Executing Functional Tests...'
+        echo 'Executing Security Tests...'
+        echo 'Executing Load/Stress Tests...'
+
+        echo 'Acceptance stage successful'
+    }
+
+stage name: 'Staging', concurrency: 1
+    node {
+        echo 'Executing Smoke Tests...'
+        echo 'Executing Functional Tests...'
+        echo 'Executing Security Tests...'
+        echo 'Executing Load/Stress Tests...'
+        echo 'Checking Compliance...'
+
+        echo 'Staging stage successful'
+    }
+
+stage name: 'Production', concurrency: 1
+    node {
+        input message: "Promote to Production?", ok: "Promote"
+        echo 'Performing A/B Testing...'
+        echo 'Performing Blue/Green Deployment...'
+
+        echo 'Successfully released to Production'
+    }
